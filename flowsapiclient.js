@@ -21,9 +21,10 @@ class FlowsAPIClient{
             success: function(data){
                 this.token = data['token']
                 console.log('Token: ' + this.token)
+                return null
             },
-            failure: function(errMsg) {},
-            error: function(errMsg) {}
+            failure: function(errMsg) {return errMsg},
+            error: function(errMsg) {return errMsg}
         });
     }
 
