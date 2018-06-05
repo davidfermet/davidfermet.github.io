@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Surycat API PM Toolbox</title>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+     <script src="flowsapiclient.js" charset="utf-8"></script>
+     <script type="text/javascript">
+       $(document).ready(function() {
+    LOGIN = "david.fermet"
+    PASSWORD = "rHT3nFOi4mMZ"
+    URL = "https://ars-idf.mp.surycat.com"
+
+    client = new FlowsAPIClient(LOGIN, PASSWORD, URL);
+
+    client.login();
+    client.list_groups();
+
+    $.each(client.groups, function(idx, val) {
+        $("#groups").append($('<option value='+val['uid']+'>').text(val['name']))
+    })
+    /*contact_list = client.list_contacts();
+    client.create_or_update_contact("prénom5", "nom", "+336123456");
+    client.create_or_update_contact("prénom5", "nom", "+336123456");*/
+
+
+    function addToPreview(first_name, last_name, mobile, phone_work, phone_home, email) {
+        $('.preview').append(
+            $('<tr>')
+                .append($('<td>').text(first_name))
+                .append($('<td>').text(last_name))
+                .append($('<td>').text(mobile))
+                .append($('<td>').text(phone_work))
+                .append($('<td>').text(phone_home))
+                .append($('<td>').text(email))
+        )
+    }
+
+    $('.csvtable').focusout(function() {
+        
+        $('.preview').children().remove();
+        $.each($('.csvtable').val().split("\n"), function(idx, val) {
+            line = val.split('\t');
+            if (line.length  > 1 && line[0].trim() != "" ) {
+              addToPreview(line[0], line[1], line[2], line[3], line[4], line[5])  
+            }
+        })
+
+        $('button.addressbook').text('Push it ('+ $('table tr').length +') !!')
+    })
+
+    /* Show URL */
+    $('.url').text(URL)
+
+
+    $(".addressbook").on('click', function() {
+
+        var lines = $('.csvtable').val().split("\n");
+        var cuid = [];
+        console.log('Selected group: ' + $("#groups").val())
+        /*console.log('Wipe group ?: ' + $("#wipegroup").is(':checked'))*/
+        if ($("#groups").val() != "") {
+          res = client.get("/addressbook/api/v1/groups/" + $("#groups").val())
+        /*console.log(res)*/
+        /*cuid = res['contacts']*/
+        } else {
+          var cuid = [];
+        }
+
+        /* Wipe group - or not */
+        if ($("#wipegroup").is(':checked')===true) {
+            var cuid = [];
+            client.patch("/addressbook/api/v1/groups/" + $("#groups").val(), {"contacts":[], "name":$('#groups option:selected').text()})
+        }
+
+        /* Create / update contacts */
+        var i = 1;
+        var total = $('table tr').length
+        $.each(lines, function(idx,val) {
+            if (val.length > 1 && val[0].trim() != "") {
+                var cells = val.split('\t');
+                var data = {
+                    "first_name":cells[0],
+                    "last_name":cells[1],
+                    "mobile":cells[2],
+                    "phone_work":cells[3],
+                    "phone_home":cells[4],
+                    "email":cells[5]
+                }
+                debug = "[" + i + "/"+ total +"]" + cells[0] + " " + cells[1] + " " + cells[2] + " " + cells[3] + " " + cells[4] + " " + cells[5] + " "
+                console.log(debug);
+                i++;
+                res = client.create_or_update_contact(cells[0], cells[1], cells[2], cells[3], cells[4], cells[5])
+                if (cuid.includes(res['uid']) === false) {
+                    cuid.push(res['uid'])
+                }
+            }
+            $('.progress').text($('table tr').length - i + ' left to go')
+        })
+
+        /* Associate users to group */
+        console.log("Associating users to group " + $('#groups option:selected').text() )
+        if ($("#groups").val() != "") {
+          client.patch("/addressbook/api/v1/groups/" + $("#groups").val(), {"contacts":cuid, "name":$('#groups option:selected').text()})
+        }
+
+
+    })
+
+});
+     </script>
+
+     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  </head>
+  <style>
+  textarea {
+    font-family: monospace;
+  }
+  </style>
+  <body class="popup">
+      <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+
+            Surycat API > <span class="url"></span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <h3>Surycat Flows API</h3>
+    <div class="container">
+      <div class="row">
+        <h3>Addressbook sync API</h3>
+        <textarea rows="5" cols="100" class="csvtable"></textarea>
+        <form>
+          <fieldset>
+            <div class="form-group">
+              <label for="disabledTextInput">Associate to group</label>
+              <select class="form-control" id="groups">
+              <option value=""> --- ne pas associer ---</option>
+              </select>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="wipegroup" value=""> Wipe group content
+              </label>
+            </div>
+            <button type="" class="btn btn-primary addressbook">Push it!</button><span class="progress">...</span>
+          </fieldset>
+        </form>
+      </div>
+      <br>
+      <div class="alert alert-info" role="alert">...</div>
+      <div class="row">
+        <h2>Preview</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Mobile</th>
+            <th>Tel. bureau</th>
+            <th>Tel. domicile</th>
+            <th>email</th>
+            </tr>
+          </thead>
+          <tbody class="preview">
+          </tbody>
+        </table>
+
+      </div>
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
