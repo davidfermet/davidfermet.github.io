@@ -1,0 +1,57 @@
+
+.block-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+.kitchen-worktop {
+	height: 250px;
+	width: 400px;
+	display: inline-flex;
+	background: url('./images/bg.png') no-repeat center center;
+	background-size: contain;
+	position: relative;
+}
+
+.kitchen-worktop div {
+	position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    
+}
+.topleft {
+	top: 0%;
+    left: 1%;
+    height: 29%;
+    width: 19%;
+}
+.topright {
+    top: 3%;
+    left: 74%;
+    height: 39%;
+    width: 25%;
+}
+.bottomleft {
+    top: 58%;
+    left: 8%;
+    height: 43%;
+    width: 27%;
+}
+.bottomright {
+    top: 63%;
+    left: 62%;
+    height: 29%;
+    width: 18%;
+}
+
+.connector-list div {
+	display: inline-flex;
+}
+.connector-list {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: row;
+	max-width: 100%;
+	overflow-x: scroll;
+}
