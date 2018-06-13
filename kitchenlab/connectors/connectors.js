@@ -30,7 +30,7 @@ $(document).ready(function() {
         if (disabled === true) {
             link.addClass(disabled_class)
         }
-        link.append($('<div style="background-image:url(\'./images/kitchenlab/' + ico_path + '\')" alt="' + title + '" class="cx-logo">'))
+        link.append($('<div style="background-image:url(\'./images/kitchenlab/' + ico_path + '\')" alt="' + title + '" class="cx-logo draggable">'))
         link.append($('<h3 class="uk-panel-title">').text(title))
         link.append(subtitle)
         widget.attr('data-search', title.toLowerCase() + ' ' + subtitle.toLowerCase())
@@ -92,4 +92,17 @@ $(document).ready(function() {
         }
     });
 
+
+    $( ".draggable" ).draggable({
+      revert: true,
+      helper: "clone",
+      appendTo: "body"
+    });
+    $( ".droppable" ).droppable({
+      accept: ".draggable",
+      drop: function( event, ui ) {
+        console.log($(ui.helper).css('background-image'))
+        $(this).css('background-image',$(ui.helper).css('background-image'))
+      }
+    });
 });
