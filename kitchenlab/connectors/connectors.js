@@ -38,8 +38,6 @@ $(document).ready(function() {
         widget.append(link)
         return widget
     }
-    console.log('tototo')
-    var kitchen_link = $('<a href="'+ i18n[lg_bis]['kitchenlab'] +'" class="uk-button uk-button-primary">').text(i18n[lg]['cook_it'])
     function connectize() {
         $.each(bigarr, function(index, value) {
             arr = value

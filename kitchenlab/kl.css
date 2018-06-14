@@ -17,35 +17,40 @@
 
 .kitchen-worktop div {
 	position: absolute;
-    background-color: rgba(0,0,0,0.5);
+    /*background-color: rgba(0,0,0,0.5);*/
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
-    
+    border: 3px solid rgb(140,140,140);
+    border-radius: 100px;
+    background-color: white;
+    background-size: 70%;
 }
 .topleft {
-	top: 1%;
+    top: 0%;
     left: 1%;
-    height: 27%;
-    width: 17%;
+    height: 28%;
+    width: 18%;
 }
 .topright {
     top: 3%;
     left: 74%;
-    height: 39%;
-    width: 25%;
+    height: 37%;
+    width: 24%;
+        
 }
 .bottomleft {
     top: 58%;
     left: 8%;
-    height: 43%;
-    width: 27%;
+    height: 40%;
+    width: 25%;
 }
 .bottomright {
-    top: 63%;
+    top: 62%;
     left: 62%;
     height: 29%;
     width: 18%;
+    
 }
 
 .connector-list div {
