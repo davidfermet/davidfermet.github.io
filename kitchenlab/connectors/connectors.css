@@ -77,3 +77,8 @@
     opacity: 0.5;
 }
 
+
+.act.highlight,
+.trig.highlight {
+box-shadow: 0 0 2px 10px #9ecaed;
+}

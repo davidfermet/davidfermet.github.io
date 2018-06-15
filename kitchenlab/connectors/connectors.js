@@ -20,9 +20,9 @@ $(document).ready(function() {
     /* remove joomla whitespace*/
     $('.connector-list').text('');
     var disabled_class = "uk-panel-box-secondary"
-    function widgetize(title, subtitle, info, disabled, ico_path, href) {
+    function widgetize(title, subtitle, label_in, label_out, info, disabled, ico_path, href) {
         var widget;
-        widget = $('<div>').addClass('');
+        widget = $('<div>').addClass('widget');
         link = $('<a class="uk-panel uk-panel-hover cx-widget">')
         if (href != "") {
             link.attr('href', href)
@@ -30,10 +30,19 @@ $(document).ready(function() {
         if (disabled === true) {
             link.addClass(disabled_class)
         }
-        link.append($('<div style="background-image:url(\'./images/kitchenlab/' + ico_path + '\')" alt="' + title + '" class="cx-logo draggable">'))
+        
+        img = $('<div style="background-image:url(\'./images/kitchenlab/' + ico_path + '\')" alt="' + title + '" class="cx-logo draggable">')
+        img.attr('data-label-in', label_in)
+        img.attr('data-label-out', label_out)
+        link.append(img)
         link.append($('<h3 class="uk-panel-title">').text(title))
+
         link.append(subtitle)
+        
+
         widget.attr('data-search', title.toLowerCase() + ' ' + subtitle.toLowerCase())
+        
+
         widget.attr('data-info', info)
         widget.append(link)
         return widget
@@ -46,8 +55,10 @@ $(document).ready(function() {
             ico_path = arr['ico']
             disabled = arr['disabled']
             href = arr['link']
+            label_in = arr[lg]['trig_label']
+            label_out = arr[lg]['act_label']
             info = arr[lg]['info']
-            $('.connector-list').append(widgetize(title, subtitle, info, disabled, ico_path, href))
+            $('.connector-list').append(widgetize(title, subtitle, label_in, label_out, info, disabled, ico_path, href))
         })
     }
     
@@ -94,12 +105,31 @@ $(document).ready(function() {
     $( ".draggable" ).draggable({
       revert: true,
       helper: "clone",
-      appendTo: "body"
+      appendTo: "body",
+      start: function(event, ui) {
+        console.log(ui.draggable)
+        console.log('IN : '+ $(this).attr('data-label-in')  )
+        console.log('OUT : '+$(this).attr('data-label-out') )
+
+        if ($(this).attr('data-label-in') != "") {
+            $('.trig').addClass('highlight')
+        }
+        if ($(this).attr('data-label-out') != "") {
+            console.log('Im active')
+            $('.act').addClass('highlight')
+            
+        }
+
+      },
+      stop: function(event,ui) {
+        $('.trig').removeClass('highlight')
+        $('.act').removeClass('highlight')
+      }
     });
     $( ".droppable" ).droppable({
       accept: ".draggable",
       drop: function( event, ui ) {
-        console.log($(ui.helper).css('background-image'))
+        
         $(this).css('background-image',$(ui.helper).css('background-image'))
       }
     });
