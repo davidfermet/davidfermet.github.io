@@ -120,7 +120,7 @@
         function webhook(ressource, msg) {
             console.log("Webhooking " + ressource + " with message :" + msg)
                var http = new XMLHttpRequest();
-                var url = 'http://demo.surycat.com:15001/api/' + ressource;
+                var url = '//demo.surycat.com:15001/api/' + ressource;
                 var params = 'msg=' + msg;
                 http.open('POST', url, true);
 
