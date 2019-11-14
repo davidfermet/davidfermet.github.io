@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Material Design for Bootstrap fonts and icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+    <!-- Material Design for Bootstrap CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="demonavbar">
+      <a class="navbar-brand" href="#"><img src="https://dev.surycat.io/img/Surycat 3.5.png" width="30" height="30" alt=""> </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav nav-tabs navbar-nav mr-auto" role="tablist">
+          <li class="nav-item active">
+            <a class="nav-link" data-toggle="tab" href="#nursecall" role="tab" aria-controls="nursecall" >Nurse Call <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#techalarm" role="tab" aria-controls="techalarm">Technical alarm</a>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container-fluid tab-content" style="margin-top: 64px">
+      <div class="tab-pane fade show active" role="tabpanel" id="nursecall">
+      <h3>Nurse Call demo</h3>
+      <p>This demo virtualizes 2 rooms with bathroom. Each one is equiped with a nurse call equipment.</p>
+      <p>Click on any nurse call button to trigger a call to nurse staff.</p>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Room 123</h5>
+          <p class="card-text">Maternity wing</p>
+          <div class="d-flex flex-wrap">
+            <button type="button" class="btn btn-raised btn-success trigger" s-ressource="nursecall" s-payload="APP CH123">Call</button>
+            <button type="button" class="btn btn-raised btn-secondary  trigger" s-ressource="nursecall" s-payload="PRES CH123">Presence</button>
+            <button type="button" class="btn btn-raised btn-warning trigger" s-ressource="nursecall" s-payload="ACK CH123">Leave</button>
+            <button type="button" class="btn btn-raised btn-danger trigger" s-ressource="nursecall" s-payload="URG CH123">Emergency</button>          
+          </div>
+          <h6>Bathroom</h6>
+            <button type="button" class="btn btn-raised btn-success trigger" s-ressource="nursecall" s-payload="APP SDB123">Call</button>
+            <button type="button" class="btn btn-raised btn-danger trigger" s-ressource="nursecall"  s-payload="URG SDB123">Emergency</button>          
+        </div>
+      </div>
+      
+       <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Room 417</h5>
+          <p class="card-text">Post operatory recovery wing</p>
+          <div class="d-flex flex-wrap">
+<button type="button" class="btn btn-raised btn-success trigger" s-ressource="nursecall" s-payload="APP CH417">Call</button>
+            <button type="button" class="btn btn-raised btn-secondary  trigger" s-ressource="nursecall" s-payload="PRES CH417">Presence</button>
+            <button type="button" class="btn btn-raised btn-warning trigger" s-ressource="nursecall" s-payload="ACK CH417">Leave</button>
+            <button type="button" class="btn btn-raised btn-danger trigger" s-ressource="nursecall" s-payload="URG CH417">Emergency</button>         
+          </div>
+          <h6>Bathroom</h6>
+            <button type="button" class="btn btn-raised btn-success">Call</button>
+            <button type="button" class="btn btn-raised btn-danger">Emergency</button>          
+        </div>
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="techalarm" role="tabpanel">
+      <h3>Technical alarm</h3>
+      <p>This demo virtualizes a few equiments from Building Management Systems</p>
+      <p>Click on any nurse call button to trigger a call to nurse staff.</p>
+
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Main Power Supply</h5>
+          <p class="card-text">Basic I/O switch</p>
+          <div class="d-flex flex-wrap">
+            <button type="button" class="btn btn-raised btn-success trigger"  s-ressource="techalarm" s-payload="[Main power supply] Back to normal state. Energy now flows smoothly everywhere and light is back on ;)">Normal state</button>
+            <button type="button" class="btn btn-raised btn-danger trigger" s-ressource="techalarm" s-payload="[Main power supply] ALARM: Main power line is down. We're running on batteries. Light will turn off within 30 minutes... /!\ ">Alarm State</button>          
+          </div>        
+        </div>
+      </div>
+    </div>
+      
+
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script>
+
+      $(document).ready(function() { 
+        $('body').bootstrapMaterialDesign(); 
+
+        $(function(){ 
+             var navMain = $("#demonavbar");
+             navMain.on("click", "a", null, function () {
+                 navMain.collapse('hide');
+             });
+         });
+
+        function webhook(ressource, msg) {
+            console.log("Webhooking " + ressource + " with message :" + msg)
+               var http = new XMLHttpRequest();
+                var url = 'http://demo.surycat.com:15001/api/' + ressource;
+                var params = 'msg=' + msg;
+                http.open('POST', url, true);
+
+                //Send the proper header information along with the request
+                http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                http.onreadystatechange = function() {//Call a function when the state changes.
+                    if(http.readyState == 4 && http.status == 200) {
+                        alert(http.responseText);
+                    }
+                }
+                http.send(params);
+        }
+        webhook("nursecall", "APP CH417")
+
+        $('.trigger').on('click', function() {
+          console.log('click event');
+          console.log($(this).attr('s-payload'))
+          webhook($(this).attr('s-ressource'), $(this).attr('s-payload'))
+        })
+
+
+
+      });
+
+
+
+
+  </script>
+  </body>
+</html>
